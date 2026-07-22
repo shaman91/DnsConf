@@ -197,6 +197,9 @@ For `REDIRECT`:
 + Existing domain will be updated if redirect IP has changed
 + If new domains are provided, they will be added
 + The rest redirect settings are kept untouched
++ Set optional environment variable `PRUNE_REDIRECT=true` to remove existing rewrites that are absent from the current
+  `REDIRECT` sources. The default is `false`, so manually managed rewrites are preserved unless exact synchronization is
+  explicitly enabled.
 
 For `BLOCK`:
 
