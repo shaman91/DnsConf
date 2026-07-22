@@ -7,7 +7,7 @@ import com.novibe.dns.next_dns.http.NextDnsRateLimitedApiProcessor;
 import com.novibe.dns.next_dns.http.NextDnsRewriteClient;
 import com.novibe.dns.next_dns.http.dto.request.CreateRewriteDto;
 import com.novibe.dns.next_dns.http.dto.response.rewrite.RewriteDto;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,14 +15,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Objects.nonNull;
-
 @Service
-@RequiredArgsConstructor
 public class NextDnsRewriteService {
 
     private final NextDnsRewriteClient nextDnsRewriteClient;
     private final ExcludeRedirectCheckService excludeRedirectCheckService;
+    private final boolean pruneUnmanagedRewrites;
+
+    public NextDnsRewriteService(NextDnsRewriteClient nextDnsRewriteClient,
+                                 ExcludeRedirectCheckService excludeRedirectCheckService,
+                                 @Value("${PRUNE_REDIRECT:false}") boolean pruneUnmanagedRewrites) {
+        this.nextDnsRewriteClient = nextDnsRewriteClient;
+        this.excludeRedirectCheckService = excludeRedirectCheckService;
+        this.pruneUnmanagedRewrites = pruneUnmanagedRewrites;
+    }
 
     public Map<String, CreateRewriteDto> buildNewRewrites(List<HostsOverrideListsLoader.BypassRoute> overrides) {
         Map<String, CreateRewriteDto> rewriteDtos = new HashMap<>();
@@ -45,7 +51,13 @@ public class NextDnsRewriteService {
                 continue;
             }
             CreateRewriteDto request = newRewriteRequests.get(domain);
-            if (nonNull(request) && !request.content().equals(oldIp)) {
+            if (request == null) {
+                if (pruneUnmanagedRewrites) {
+                    outdatedIds.add(existingRewrite.id());
+                }
+                continue;
+            }
+            if (!request.content().equals(oldIp)) {
                 outdatedIds.add(existingRewrite.id());
             } else {
                 newRewriteRequests.remove(domain);
