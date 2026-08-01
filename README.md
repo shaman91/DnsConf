@@ -148,6 +148,8 @@ These domains and their subdomains:
 - will be removed from existing redirect rules;
 - won't be added with new ones.
 
+Prefix a domain with `=` to exclude only that exact domain while keeping its subdomains, e.g. `=tiktok.com`.
+
 ---
 
 ## Multiple profiles setup
