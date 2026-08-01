@@ -1,1 +1,2 @@
-103.27.157.38 www.tiktok.com
+# DnsConf removes one leading www.; doubling it preserves the exact www.tiktok.com rewrite.
+103.27.157.38 www.www.tiktok.com
