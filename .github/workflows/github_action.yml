@@ -13,10 +13,12 @@ jobs:
 
     env:
       DNS: ${{ vars.DNS }}
+      ALLOW: ${{ vars.ALLOW }}
       BLOCK: ${{ vars.BLOCK }}
       REDIRECT: ${{ vars.REDIRECT }}
       EXCLUDE_REDIRECT: ${{ vars.EXCLUDE_REDIRECT }}
-      PRUNE_REDIRECT: 'true'
+      # Keep manual rewrites unless this repository becomes the sole owner of every rewrite.
+      PRUNE_REDIRECT: 'false'
 
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}

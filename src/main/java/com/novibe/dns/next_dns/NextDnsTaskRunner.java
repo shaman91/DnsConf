@@ -5,6 +5,7 @@ import com.novibe.common.data_sources.HostsOverrideListsLoader;
 import com.novibe.common.util.EnvParser;
 import com.novibe.common.util.Log;
 import com.novibe.dns.next_dns.http.dto.request.CreateRewriteDto;
+import com.novibe.dns.next_dns.service.NextDnsAllowService;
 import com.novibe.dns.next_dns.service.NextDnsDenyService;
 import com.novibe.dns.next_dns.service.NextDnsRewriteService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+import static com.novibe.common.config.EnvironmentVariables.ALLOW;
 import static com.novibe.common.config.EnvironmentVariables.BLOCK;
 import static com.novibe.common.config.EnvironmentVariables.REDIRECT;
 
@@ -22,6 +24,7 @@ public class NextDnsTaskRunner extends DnsTaskRunner {
 
     private final NextDnsRewriteService nextDnsRewriteService;
     private final NextDnsDenyService nextDnsDenyService;
+    private final NextDnsAllowService nextDnsAllowService;
 
     @Override
     public void greetingMessage() {
@@ -31,12 +34,28 @@ public class NextDnsTaskRunner extends DnsTaskRunner {
                 - if no sources provided, then all NextDNS settings will be removed.
                 - each line is mapped to an IP–domain pair; lines that cannot be parsed are skipped.
                 - if provided only one type of sources, related settings will be updated; another type remain untouched.
+                - ALLOW contains exact domains to add to the NextDNS Allowlist and never removes existing entries.
                 - if EXCLUDE_REDIRECT domains provided, they will affect both existing and new redirect rules.
                 NextDNS api rate limiter reset config: 60 seconds after the last request""");
     }
 
     @Override
     protected void process() {
+        List<String> allowDomains = EnvParser.parse(ALLOW).stream()
+                .map(String::strip)
+                .filter(domain -> !domain.isEmpty())
+                .distinct()
+                .toList();
+        if (!allowDomains.isEmpty()) {
+            Log.step("Prepare allowlist");
+            List<String> filteredAllowlist = nextDnsAllowService.omitExistingAllows(allowDomains);
+            Log.common("Prepared %s domains to allow".formatted(filteredAllowlist.size()));
+            Log.step("Save allowlist");
+            nextDnsAllowService.saveAllowList(filteredAllowlist);
+        } else {
+            Log.fail("No allowlist domains provided");
+        }
+
         List<String> blockSources = EnvParser.parse(BLOCK);
         if (!blockSources.isEmpty()) {
             Log.step("Obtain block lists from %s sources".formatted(blockSources.size()));
@@ -66,7 +85,7 @@ public class NextDnsTaskRunner extends DnsTaskRunner {
             Log.fail("No rewrite sources provided");
         }
 
-        if (blockSources.isEmpty() && rewriteSources.isEmpty()) {
+        if (allowDomains.isEmpty() && blockSources.isEmpty() && rewriteSources.isEmpty()) {
             Log.step("Remove settings");
             nextDnsDenyService.removeAll();
             nextDnsRewriteService.removeAll();

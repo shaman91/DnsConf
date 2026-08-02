@@ -107,18 +107,7 @@
 ## Настройка источников данных
 
 Каждый источник данных должен быть ссылкой на hosts-файл, можете воспользоваться этой:  
-https://raw.githubusercontent.com/Internet-Helper/GeoHideDNS/refs/heads/main/hosts/hosts
-
-Можно указать несколько источников, разделив их запятой:
-`https://first.com/hosts,https://second.com/hosts`
-
----
-
-### 1) Настройка перенаправлений (редиректы)
-
-Укажите источники в **переменной окружения** `REDIRECT`.
-
-Скрипт парсит источники, ингнорируя строки, начинающиеся на `0.0.0.0` и `127.0.0.1`
+https://raw.githubusercontent.com/Interne…132 tokens truncated…`0.0.0.0` и `127.0.0.1`
 
 Например, из строк:
 
@@ -160,6 +149,15 @@ https://raw.githubusercontent.com/Internet-Helper/GeoHideDNS/refs/heads/main/hos
 + Для **NextDNS** оптимальным вариантом будет указать только `REDIRECT`, а списки для блокировки выбрать вручную во
   вкладке _Privacy_.
 
+### 3) Настройка списка разрешений
+
+Укажите точные домены через запятую в **переменной окружения** `ALLOW`, например:
+
+    jarvis.example.net,required-service.example.org
+
+Конфигуратор добавляет отсутствующие активные записи в Allowlist NextDNS и сохраняет все существующие записи.
+Значение применяется ко всем настроенным профилям NextDNS так же, как `BLOCK`, `REDIRECT` и `EXCLUDE_REDIRECT`.
+
 ---
 
 ## Настройка исключений редиректов (опционально)
@@ -180,7 +178,7 @@ https://raw.githubusercontent.com/Internet-Helper/GeoHideDNS/refs/heads/main/hos
 
 ### Ограничения
 
-Все профили получат _одинаковые_ настройки. Другими словами, значения в `BLOCK`, `REDIRECT` и `EXCLUDE_REDIRECT` будут *
+Все профили получат _одинаковые_ настройки. Другими словами, значения в `ALLOW`, `BLOCK`, `REDIRECT` и `EXCLUDE_REDIRECT` будут *
 *общими**.
 
 ### Несколько профилей одного провайдера
@@ -227,13 +225,16 @@ https://raw.githubusercontent.com/Internet-Helper/GeoHideDNS/refs/heads/main/hos
 + Существующий домен будет обновлён, если IP редиректа изменился
 + Новые домены будут добавлены к существующим
 + Остальные настройки редиректов останутся без изменений
++ Необязательная переменная `PRUNE_REDIRECT=true` удаляет существующие rewrites, которых нет в текущих источниках
+  `REDIRECT`. По умолчанию значение `false`: это сохраняет вручную созданные rewrites. Включайте очистку только когда
+  репозиторий является единственным владельцем всех rewrite-записей профиля.
 
 Для `BLOCK`:
 
 + Новые домены будут добавлены к существующим
 + Остальные настройки блокировки останутся без изменений
 
-Ранее сгенерированные данные удаляются, если не заданы источники **ДЛЯ ОБЕИХ НАСТРОЕК** `BLOCK` и `REDIRECT`.
+Существующие denylist и rewrite удаляются только если `ALLOW`, `BLOCK` и `REDIRECT` одновременно пусты.
 
 ---
 
@@ -249,7 +250,7 @@ https://www.youtube.com/watch?v=vbAXM_xAL5I
 2) Перейдите в _Settings_ → _Environments_
 3) Создайте _New environment_ с именем `DNS`
 4) Добавьте `AUTH_SECRET` и `CLIENT_ID` в **Environment secrets**
-5) Добавьте `DNS`, `REDIRECT`, `BLOCK` и `EXCLUDE_REDIRECT` в **Environment variables**
+5) Добавьте `DNS`, `ALLOW`, `REDIRECT`, `BLOCK` и `EXCLUDE_REDIRECT` в **Environment variables**
 
 + **Action** запускается ежедневно в **01:30 UTC** (04:30 по МСК).  
   Чтобы изменить время, отредактируйте cron в `.github/workflows/github_action.yml`

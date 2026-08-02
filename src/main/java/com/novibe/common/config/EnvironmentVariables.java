@@ -14,6 +14,8 @@ public class EnvironmentVariables {
 
     public static final String BLOCK = System.getenv("BLOCK");
 
+    public static final String ALLOW = System.getenv("ALLOW");
+
     public static final String REDIRECT = System.getenv("REDIRECT");
 
     public static final String EXCLUDE_REDIRECT = System.getenv("EXCLUDE_REDIRECT");

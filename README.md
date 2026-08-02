@@ -137,6 +137,16 @@ for the further block processing.
 + For **NextDNS**, the best option might be to set `REDIRECT` only, and then manually choose any blocklists at the
   _Privacy_ tab.
 
+### 3) Setup Allowlist
+
+Set exact domains separated by commas in the **environment variable** `ALLOW`, for example:
+
+    jarvis.example.net,required-service.example.org
+
+The configurator adds missing active entries to the NextDNS Allowlist and preserves every existing Allowlist entry.
+The value is shared by all configured NextDNS profiles, consistently with `BLOCK`, `REDIRECT` and
+`EXCLUDE_REDIRECT`.
+
 ---
 
 ## Setup exclude redirects (optional)
@@ -208,7 +218,7 @@ For `BLOCK`:
 + If new domains are provided, they will be added
 + The rest block settings are kept untouched
 
-Previously generated data is removed **ONLY** when both `BLOCK` and `REDIRECT` sources were not provided.
+Previously generated denylist and rewrite data is removed **ONLY** when `ALLOW`, `BLOCK` and `REDIRECT` are all empty.
 
 ---
 
@@ -222,7 +232,7 @@ Previously generated data is removed **ONLY** when both `BLOCK` and `REDIRECT` s
 2) Go _Settings_ => _Environments_
 3) Create _New environment_ with name `DNS`
 4) Provide `AUTH_SECRET` and `CLIENT_ID` to **Environment secrets**
-5) Provide `DNS`,`REDIRECT`, `BLOCK` and `EXCLUDE_REDIRECT` to **Environment variables**
+5) Provide `DNS`, `ALLOW`, `REDIRECT`, `BLOCK` and `EXCLUDE_REDIRECT` to **Environment variables**
 
 + The action will be launched every day at **01:30 UTC**. To set another time, change cron at
   `.github/workflows/github_action.yml`
