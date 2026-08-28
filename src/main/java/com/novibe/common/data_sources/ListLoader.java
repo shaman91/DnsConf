@@ -15,6 +15,7 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.StructuredTaskScope;
 import java.util.function.Predicate;
@@ -31,6 +32,10 @@ public abstract class ListLoader<T> {
 
     protected abstract Predicate<HostsLine> filterRelatedLines();
 
+    protected HostsLine parseLine(String line) {
+        return DataParser.parseHostsLine(line);
+    }
+
     @SneakyThrows
     @SuppressWarnings("preview")
     public List<T> fetchWebsites(List<String> urls) {
@@ -40,15 +45,19 @@ public abstract class ListLoader<T> {
                 .map(url -> scope.fork(() -> fetchList(url)))
                 .forEach(requests::add);
         scope.join();
-        return requests.stream()
-                .map(StructuredTaskScope.Subtask::get)
+        return parseLists(requests.stream().map(StructuredTaskScope.Subtask::get).toList());
+    }
+
+    /** Same ordered parser for downloaded sources, tests and offline dry-runs. */
+    public List<T> parseLists(List<String> contents) {
+        return contents.stream()
                 .flatMap(DataParser::splitByEol)
                 .map(String::strip)
                 .parallel()
                 .filter(line -> !line.isBlank())
                 .filter(line -> !DataParser.isComment(line))
-                .map(String::toLowerCase)
-                .map(DataParser::parseHostsLine)
+                .map(line -> line.toLowerCase(Locale.ROOT))
+                .map(this::parseLine)
                 .filter(Objects::nonNull)
                 .filter(filterRelatedLines())
                 .distinct()

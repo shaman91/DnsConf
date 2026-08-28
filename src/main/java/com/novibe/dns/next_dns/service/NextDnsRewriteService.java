@@ -1,7 +1,9 @@
 package com.novibe.dns.next_dns.service;
 
 import com.novibe.common.data_sources.HostsOverrideListsLoader;
+import com.novibe.common.exception.UserInputException;
 import com.novibe.common.service.ExcludeRedirectCheckService;
+import com.novibe.common.util.DataParser;
 import com.novibe.common.util.Log;
 import com.novibe.dns.next_dns.http.NextDnsRateLimitedApiProcessor;
 import com.novibe.dns.next_dns.http.NextDnsRewriteClient;
@@ -11,7 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,9 +34,45 @@ public class NextDnsRewriteService {
     }
 
     public Map<String, CreateRewriteDto> buildNewRewrites(List<HostsOverrideListsLoader.BypassRoute> overrides) {
-        Map<String, CreateRewriteDto> rewriteDtos = new HashMap<>();
-        overrides.forEach(route -> rewriteDtos.putIfAbsent(route.website(), new CreateRewriteDto(route.website(), route.ip())));
+        Map<String, CreateRewriteDto> rewriteDtos = new LinkedHashMap<>();
+        List<String> cnameParents = new ArrayList<>();
+        for (var route : overrides) {
+            String name = route.website();
+            if (excludeRedirectCheckService.shouldExclude(name) || rewriteDtos.containsKey(name)) continue;
+            // A higher-priority CNAME parent owns later descendants. Earlier explicit
+            // children remain exceptions; IP-parent semantics are deliberately unchanged.
+            if (cnameParents.stream().anyMatch(parent -> name.endsWith("." + parent))) continue;
+            rewriteDtos.put(name, new CreateRewriteDto(name, route.ip()));
+            if (!DataParser.isValidIP(route.ip())) {
+                if (!DataParser.isHostname(route.ip()) || !DataParser.isHostname(name)) {
+                    throw UserInputException.noStackTrace("Invalid hostname redirect for " + name);
+                }
+                cnameParents.add(name);
+            }
+        }
+        validateCnameCycles(rewriteDtos);
         return rewriteDtos;
+    }
+
+    private static void validateCnameCycles(Map<String, CreateRewriteDto> rewrites) {
+        for (CreateRewriteDto start : rewrites.values()) {
+            if (DataParser.isValidIP(start.content())) continue;
+            var visited = new HashSet<String>();
+            CreateRewriteDto current = start;
+            while (current != null && !DataParser.isValidIP(current.content())) {
+                if (!visited.add(current.name())) {
+                    throw UserInputException.noStackTrace("CNAME rewrite cycle involving " + start.name());
+                }
+                String target = current.content();
+                current = null;
+                for (CreateRewriteDto candidate : rewrites.values()) {
+                    if ((target.equals(candidate.name()) || target.endsWith("." + candidate.name()))
+                            && (current == null || candidate.name().length() > current.name().length())) {
+                        current = candidate;
+                    }
+                }
+            }
+        }
     }
 
     public List<CreateRewriteDto> cleanupOutdatedAndExcluded(Map<String, CreateRewriteDto> newRewriteRequests) {

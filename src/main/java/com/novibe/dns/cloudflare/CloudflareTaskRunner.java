@@ -2,6 +2,8 @@ package com.novibe.dns.cloudflare;
 
 import com.novibe.common.DnsTaskRunner;
 import com.novibe.common.data_sources.HostsOverrideListsLoader.BypassRoute;
+import com.novibe.common.exception.UserInputException;
+import com.novibe.common.util.DataParser;
 import com.novibe.common.util.EnvParser;
 import com.novibe.common.util.Log;
 import com.novibe.dns.cloudflare.http.dto.response.list.GatewayListDto;
@@ -44,6 +46,14 @@ public class CloudflareTaskRunner extends DnsTaskRunner {
 
         List<String> blocks = blockListsLoader.fetchWebsites(EnvParser.parse(BLOCK));
         List<BypassRoute> overrides = overrideListsLoader.fetchWebsites(EnvParser.parse(REDIRECT));
+        processLists(blocks, overrides);
+    }
+
+    protected void processLists(List<String> blocks, List<BypassRoute> overrides) {
+        // Cloudflare override_ips cannot contain CNAME targets. Stop before deleting anything.
+        if (overrides.stream().anyMatch(route -> !DataParser.isValidIP(route.ip()))) {
+            throw UserInputException.noStackTrace("Hostname REDIRECT targets are supported only by NextDNS, not Cloudflare");
+        }
 
         Log.step("Remove old rules.");
         List<GatewayRuleDto> gatewayRuleDtos = ruleService.obtainExistingRules();

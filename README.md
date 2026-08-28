@@ -111,6 +111,39 @@ will keep only `1.2.3.4 domain.to.redirect` for the further redirect processing.
 
 + Redirect priority follows sources order. If domain appears more than one time, the first only IP will be applied.
 
+#### NextDNS hostname targets
+
+`REDIRECT` also accepts `target-hostname source-domain`, for example:
+
+```text
+ai-pool.comss.one openai.com
+ai-pool.comss.one chatgpt.com
+ai-pool.comss.one oaiusercontent.com
+```
+
+This is a DnsConf extension, **not Windows hosts syntax**. NextDNS resolves the target;
+the importer does not pin its current IP. A parent covers the domain and descendants.
+An earlier hostname-target parent suppresses later child entries (including later
+sources). Put explicit child exceptions before that parent. Literal-IP parent/child
+behavior and first exact-domain match are unchanged. Exclusions still apply.
+Malformed hostname pairs and rewrite cycles abort before rewrite cleanup.
+Cloudflare rejects hostname targets before changing its rules or lists.
+`BLOCK` keeps the original IP/domain syntax and does not accept CNAME pairs.
+
+Do not publish hostname rows before the updated importer. With `PRUNE_REDIRECT=true`,
+an old importer would skip those rows and could remove working rewrites.
+
+Offline review of a complete proposed source set (all arguments are local files):
+
+```text
+java --enable-preview -cp target/dns-block-and-redirect-configurer-1.0-SNAPSHOT.jar com.novibe.dns.next_dns.RewriteDryRun existing.json exclusions.txt source1.txt source2.txt
+```
+
+`existing.json` is an array of `{ "name": "example.com", "content": "1.2.3.4" }`.
+`exclusions.txt` contains one EXCLUDE_REDIRECT entry per line. The JSON result lists
+adds, removals, target changes and the expected full profile for pruning enabled.
+The tool makes no network calls and writes no files; it does not apply the plan.
+
 ### 2) Setup Blocklist
 
 Set sources to **environment variable** `BLOCK`

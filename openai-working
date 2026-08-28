@@ -1,9 +1,13 @@
+# NextDNS hostname targets (not compatible with the Windows hosts file).
+# Earlier CNAME parents cover all later descendants, including later sources.
+ai-pool.comss.one openai.com
+ai-pool.comss.one chatgpt.com
+ai-pool.comss.one oaiusercontent.com
 37.230.192.51 a.claude.ai
 37.230.192.51 a1961.g2.akamai.net
 37.230.192.51 a1968.i6g1.akamai.net
 37.230.192.51 aaa.deezer.com
 37.230.192.51 a-api.anthropic.com
-87.228.47.204 ab.chatgpt.com
 37.230.192.51 academy.jetbrains.com
 37.230.192.51 access.broadcom.com
 37.230.192.51 account.deezer.com
@@ -28,7 +32,6 @@
 37.230.192.51 alkalimakersuite-pa.clients6.google.com
 37.230.192.51 amazon.fls.jetbrains.com
 37.230.192.51 amd.com
-87.228.47.204 android.chat.openai.com
 37.230.192.51 ansync.deezer.com
 37.230.192.51 anthropic.com
 37.230.192.51 ap-gae2.spotify.com
@@ -39,7 +42,6 @@
 37.230.192.51 ap-help.api.jetbrains.com
 37.230.192.51 api.anthropic.com
 37.230.192.51 api.cdnlibs.org
-87.228.47.204 api.chatgpt.com
 37.230.192.51 api.claude.ai
 37.230.192.51 api.claude.com
 37.230.192.51 api.console.anthropic.com
@@ -51,7 +53,6 @@
 37.230.192.51 api.imgur.com
 37.230.192.51 api.jetbrains.ai
 37.230.192.51 api.manus.im
-87.228.47.204 api.openai.com
 37.230.192.51 api.spotify.com
 37.230.192.51 api.squareup.com
 37.230.192.51 api.trae.ai
@@ -76,7 +77,6 @@
 37.230.192.51 applyintegration.naukri.com
 37.230.192.51 apresolve.spotify.com
 37.230.192.51 arabicstatic.naukimg.com
-87.228.47.204 arena.openai.com
 37.230.192.51 asia-south1-livekit.grok.com
 37.230.192.51 assessment.nc.naukri.com
 37.230.192.51 assessments.naukri.com
@@ -92,8 +92,6 @@
 37.230.192.51 auth.anthropic.com
 37.230.192.51 auth.deepl.com
 37.230.192.51 auth.deezer.com
-87.228.47.204 auth.openai.com
-87.228.47.204 auth0.openai.com
 37.230.192.51 autoconfig.api.jetbrains.com
 37.230.192.51 autodiscover.api.jetbrains.com
 37.230.192.51 autodiscover.csm.naukri.com
@@ -111,10 +109,7 @@
 37.230.192.51 badoo.com
 37.230.192.51 badoocdn.com
 37.230.192.51 bard.google.com
-87.228.47.204 beta.api.openai.com
-87.228.47.204 beta.openai.com
 37.230.192.51 blog.jetbrains.com
-87.228.47.204 blog.openai.com
 37.230.192.51 blog.strava.com
 37.230.192.51 blogs.jetbrains.com
 37.230.192.51 blogs.naukri.com
@@ -145,53 +140,11 @@
 37.230.192.51 cdn.auth0.com
 37.230.192.51 cdn.jetbrains.com
 37.230.192.51 cdn.oaistatic.com
-87.228.47.204 cdn.openai.com
-87.228.47.204 cdn.platform.openai.com
 37.230.192.51 cdn-1.strava.com
 37.230.192.51 charts-images.scdn.co
-87.228.47.204 chat.openai.com
 37.230.192.51 chatbot.naukri.com
 37.230.192.51 chatclient.naukri.com
 37.230.192.51 chatclient-mobile.naukri.com
-87.228.47.204 chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-0.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-1.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-2.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-3.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-4.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-centralus-5.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-0.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-0-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-1.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-1-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-2.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-2-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-3.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-3-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-4.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-4-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-5.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-eastus-5-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-0.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-1.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-2.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-3.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-4.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-southcentralus-5.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-0.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-0-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-1.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-1-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-2.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-2-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-3.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-3-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-4.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-4-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-5.chatgpt.com
-87.228.47.204 chatgpt-async-webps-prod-westus-5-9e29c0310a29a59b.chatgpt.com
-87.228.47.204 chatgpt-async-webps-staging-eastus-0.chatgpt.com
-87.228.47.204 chatgpt-async-webps-staging-southcentralus-0.chatgpt.com
 37.230.192.51 checkout.www.deepl.com
 37.230.192.51 chess.com
 37.230.192.51 claude.ai
@@ -213,7 +166,6 @@
 37.230.192.51 codewithme-relay-europe-north1-2.api.jetbrains.com
 37.230.192.51 comments.blog.jetbrains.com
 37.230.192.51 communication.naukri.com
-87.228.47.204 community.openai.com
 37.230.192.51 community-auth.deepl.com
 37.230.192.51 communityhub.strava.com
 37.230.192.51 companies.naukri.com
@@ -230,7 +182,6 @@
 37.230.192.51 contentcdn.naukri.com
 37.230.192.51 content-management-files.canva.com
 37.230.192.51 contest.nc.naukri.com
-87.228.47.204 contest.openai.com
 37.230.192.51 controlplane.tailscale.com
 37.230.192.51 copilot.microsoft.com
 37.230.192.51 corona.jetbrains.space
@@ -255,7 +206,6 @@
 37.230.192.51 datalore-forum.jetbrains.com
 37.230.192.51 dc.jetbrains.space
 37.230.192.51 dds.dell.com
-87.228.47.204 debate-game.openai.com
 37.230.192.51 deepl.com
 37.230.192.51 deepmind.com
 37.230.192.51 deepmind.google
@@ -271,12 +221,10 @@
 37.230.192.51 developer.nvidia.com
 37.230.192.51 developerprofiles-pa.googleapis.com
 37.230.192.51 developers.deepl.com
-87.228.47.204 developers.openai.com
 37.230.192.51 dev-gcast.deezer.com
 37.230.192.51 dict.deepl.com
 37.230.192.51 dict-audio.deepl.com
 37.230.192.51 discovery.deezer.com
-87.228.47.204 discuss.openai.com
 37.230.192.51 dl.teamviewer.com
 37.230.192.51 docs.x.ai
 37.230.192.51 dotcover-support.jetbrains.com
@@ -298,7 +246,6 @@
 37.230.192.51 eapps.naukri.com
 37.230.192.51 echo.naukri.com
 37.230.192.51 ecs.office.com
-87.228.47.204 edge.chatgpt.com
 37.230.192.51 edgeservices.bing.com
 37.230.192.51 edge-web.dual-gslb.spotify.com
 37.230.192.51 edge-web-gew1.dual-gslb.spotify.com
@@ -324,7 +271,6 @@
 37.230.192.51 feeds.naukri.com
 37.230.192.51 fflms.naukri.com
 37.230.192.51 files.naukri.com
-87.228.47.204 files.oaiusercontent.com
 37.230.192.51 filestg.naukri.com
 37.230.192.51 filevalidation.naukri.com
 37.230.192.51 fitbit.google.com
@@ -349,7 +295,6 @@
 37.230.192.51 geolocation.onetrust.com
 37.230.192.51 gew1-dealer.spotify.com
 37.230.192.51 gew1-spclient.spotify.com
-87.228.47.204 gov-demo.chatgpt.com
 37.230.192.51 gpt3-openai.com
 37.230.192.51 gql.twitch.tv
 37.230.192.51 graphql.strava.com
@@ -361,7 +306,6 @@
 37.230.192.51 guidedhacking.com
 37.230.192.51 guides.fmhy.lol
 37.230.192.51 guilded.gg
-87.228.47.204 gym.openai.com
 37.230.192.51 hacktoberfest2020.mau.jetbrains.com
 37.230.192.51 handle.prod.csat.mau.jetbrains.com
 37.230.192.51 handle.staging.csat.mau.jetbrains.com
@@ -369,12 +313,10 @@
 37.230.192.51 heads-fa-tls13.spotifycdn.com
 37.230.192.51 hello.jetbrains.com
 37.230.192.51 help.elevenlabs.io
-87.228.47.204 help.openai.com
 37.230.192.51 hhe.deezer.com
 37.230.192.51 hiring.naukri.com
 37.230.192.51 home.deepl.com
 37.230.192.51 homepod.deezer.com
-87.228.47.204 hooks-staging.chatgpt.com
 37.230.192.51 hs.deepl.com
 37.230.192.51 hub.jetbrains.com
 37.230.192.51 i.dell.com
@@ -401,7 +343,6 @@
 37.230.192.51 internship.jetbrains.com
 37.230.192.51 interview.strava.com
 37.230.192.51 inward.deezer.com
-87.228.47.204 ios.chat.openai.com
 37.230.192.51 ipv6.msftconnecttest.com
 37.230.192.51 ipv6.msftconnecttest.com.edgesuite.net
 37.230.192.51 ita-free.app.deepl.com
@@ -423,14 +364,12 @@
 37.230.192.51 jpreports.naukri.com
 37.230.192.51 js.naukimg.com
 37.230.192.51 js.naukri.com
-87.228.47.204 jukebox.openai.com
 37.230.192.51 jules.google
 37.230.192.51 jules.google.com
 37.230.192.51 justtoplay.jetbrains.space
 37.230.192.51 knowledge.broadcom.com
 37.230.192.51 labs.google
 37.230.192.51 labs.google.com
-87.228.47.204 labs.openai.com
 37.230.192.51 last.fm
 37.230.192.51 lastfm.freetls.fastly.net
 37.230.192.51 learning.naukri.com
@@ -478,7 +417,6 @@
 37.230.192.51 meta.ai
 37.230.192.51 metro.strava.com
 37.230.192.51 mi.strava.com
-87.228.47.204 microscope.openai.com
 37.230.192.51 mkto-mailer.jetbrains.com
 37.230.192.51 m-lemmy.fmhy.net
 37.230.192.51 mobile.events.data.microsoft.com
@@ -535,7 +473,6 @@
 37.230.192.51 oauth.deezer.com
 37.230.192.51 oauth.fls.jetbrains.com
 37.230.192.51 oauth2-proxy-api.api.jetbrains.com
-87.228.47.204 ogimg.chatgpt.com
 37.230.192.51 old.fmhy.net
 37.230.192.51 old.lemmy.fmhy.net
 37.230.192.51 old-lemmy.fmhy.net
@@ -547,11 +484,9 @@
 37.230.192.51 opal.google.com
 37.230.192.51 opal.withgoogle.com
 37.230.192.51 open.spotify.com
-87.228.47.204 openai.com
 37.230.192.51 openai.fund
 37.230.192.51 openai.org
 37.230.192.51 open-exp.spotifycdn.com
-87.228.47.204 operator.chatgpt.com
 37.230.192.51 oracle.com
 37.230.192.51 ott.deepl.com
 37.230.192.51 p.naukimg.com
@@ -574,11 +509,9 @@
 37.230.192.51 pipe.deezer.com
 37.230.192.51 pkg.eu-1.jetbrains.space
 37.230.192.51 pkg-cdn.jetbrains.space
-87.228.47.204 platform.api.openai.com
 37.230.192.51 platform.claude.ai
 37.230.192.51 platform.claude.com
 37.230.192.51 platform.deezer.com
-87.228.47.204 platform.openai.com
 37.230.192.51 platform.parallel.ai
 37.230.192.51 p-lemmy.fmhy.net
 37.230.192.51 plugins.jetbrains.com
@@ -591,7 +524,6 @@
 37.230.192.51 preprod-stream.deezer.com
 37.230.192.51 preview.deezer.com
 37.230.192.51 preview.reve.art
-87.228.47.204 privacy-pass-issuer.api.chatgpt.com
 37.230.192.51 proactivebackend-pa.googleapis.com
 37.230.192.51 productupdates.naukri.com
 37.230.192.51 profile.broadcom.com
@@ -603,7 +535,6 @@
 37.230.192.51 queue.deezer.com
 37.230.192.51 qwant.com
 37.230.192.51 rdxfootmark.naukri.com
-87.228.47.204 realtime.chatgpt.com
 37.230.192.51 recruit.naukri.com
 37.230.192.51 recruiter.naukri.com
 37.230.192.51 recruiterfaq.naukri.com
@@ -641,11 +572,6 @@
 37.230.192.51 sales.jetbrains.com
 37.230.192.51 s-cdn.anthropic.com
 37.230.192.51 scim.strava.com
-87.228.47.204 sdmntpritalynorth.oaiusercontent.com
-87.228.47.204 sdmntprnortheu.oaiusercontent.com
-87.228.47.204 sdmntprpolandcentral.oaiusercontent.com
-87.228.47.204 sdmntprukwest.oaiusercontent.com
-87.228.47.204 search.chatgpt.com
 37.230.192.51 searx.fmhy.net
 37.230.192.51 secure.last.fm
 37.230.192.51 seed-mix-image.spotifycdn.com
@@ -666,10 +592,8 @@
 37.230.192.51 slack-mps.jetbrains.com
 37.230.192.51 smtp.naukri.com
 37.230.192.51 sonos-queue-bridge.deezer.com
-87.228.47.204 sora.chatgpt.com
 37.230.192.51 space-cdn.jetbrains.space
 37.230.192.51 spclient.wg.spotify.com
-87.228.47.204 spinningup.openai.com
 37.230.192.51 spleeterpro.deezer.com
 37.230.192.51 spotify.fls.jetbrains.com
 37.230.192.51 spotifycdn.com
@@ -733,7 +657,6 @@
 37.230.192.51 tableau.naukri.com
 37.230.192.51 target.naukri.com
 37.230.192.51 taxonomy-suggest.naukri.com
-87.228.47.204 tcr9i.chat.openai.com
 37.230.192.51 teamcity.jetbrains.com
 37.230.192.51 teamcity-support.jetbrains.com
 37.230.192.51 test.tuta.com
@@ -753,7 +676,6 @@
 37.230.192.51 tv2.deezer.com
 37.230.192.51 typeahead.grok.com
 37.230.192.51 ui.fmhy.net
-87.228.47.204 universe.openai.com
 37.230.192.51 unleash.codeium.com
 37.230.192.51 uploads.jetbrains.com
 37.230.192.51 uploads.linear.app
@@ -768,7 +690,6 @@
 37.230.192.51 us-west-1-raw.api.x.ai
 37.230.192.51 vdp.deezer.com
 37.230.192.51 verify.naukri.com
-87.228.47.204 videos.openai.com
 37.230.192.51 view.datalore.jetbrains.com
 37.230.192.51 vmscanus.naukri.com
 37.230.192.51 voice-proxy.www.deepl.com
@@ -805,8 +726,6 @@
 37.230.192.51 web-backend.codeium.com
 37.230.192.51 webchannel-alkalimakersuite-pa.clients6.google.com
 37.230.192.51 webhooks.naukri.com
-87.228.47.204 webrtc.chatgpt.com
-87.228.47.204 webrtc-staging.chatgpt.com
 37.230.192.51 web-sdk-assets.spotifycdn.com
 37.230.192.51 webtracker.naukri.com
 37.230.192.51 webviews.deezer.com
@@ -822,7 +741,6 @@
 37.230.192.51 windsurf-stable.codeium.com
 37.230.192.51 windsurf-telemetry.codeium.com
 37.230.192.51 write-free.www.deepl.com
-87.228.47.204 ws.chatgpt.com
 37.230.192.51 ws.deezer.com
 37.230.192.51 wtg.csm.naukri.com
 37.230.192.51 wund.com
@@ -834,7 +752,6 @@
 37.230.192.51 www.blog.strava.com
 37.230.192.51 www.business.strava.com
 37.230.192.51 www.canva.com
-87.228.47.204 www.chatgpt.com
 37.230.192.51 www.chess.com
 37.230.192.51 www.claude.ai
 37.230.192.51 www.claude.com
@@ -872,7 +789,6 @@
 37.230.192.51 www.naukri.com
 37.230.192.51 www.notion.com
 37.230.192.51 www.notion.so
-87.228.47.204 www.openai.com
 37.230.192.51 www.oracle.com
 37.230.192.51 www.patreon.com
 37.230.192.51 www.promo.strava.com
