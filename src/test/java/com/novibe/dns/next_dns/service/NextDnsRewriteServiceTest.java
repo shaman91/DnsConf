@@ -25,7 +25,7 @@ class NextDnsRewriteServiceTest {
     void cnameParentSuppressesLaterChildrenButNotEarlierExceptionsOrSimilarSuffixes() {
         var service = service(new FakeRewriteClient(List.of()), true);
         var desired = service.buildNewRewrites(new HostsOverrideListsLoader().parseLists(List.of("""
-                1.2.3.4 explicit.openai.com
+                official.example explicit.openai.com
                 ai-pool.comss.one openai.com
                 87.228.47.204 api.openai.com
                 87.228.47.204 a.b.openai.com
@@ -35,6 +35,7 @@ class NextDnsRewriteServiceTest {
                 """)));
         assertEquals(List.of("explicit.openai.com", "openai.com", "notopenai.com",
                 "instagram.com", "api.instagram.com"), List.copyOf(desired.keySet()));
+        assertEquals("official.example", desired.get("explicit.openai.com").content());
         assertEquals("ai-pool.comss.one", desired.get("openai.com").content());
         assertEquals("4.3.2.1", desired.get("api.instagram.com").content());
     }
