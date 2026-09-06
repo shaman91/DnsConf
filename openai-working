@@ -1,7 +1,8 @@
 # NextDNS hostname targets (not compatible with the Windows hosts file).
 # Earlier CNAME parents cover all later descendants, including later sources.
-# Exact official-origin exception for OpenAI Developers (COMSS returns CF 1016).
-08d9e9b18d2ea32e.vercel-dns-013.com developers.openai.com
+# Exact dns.malw.link exception for OpenAI Developers; COMSS returns CF 1016
+# and the official Vercel edge returns 403 from the current network path.
+193.233.112.68 developers.openai.com
 ai-pool.comss.one openai.com
 ai-pool.comss.one chatgpt.com
 ai-pool.comss.one oaiusercontent.com
