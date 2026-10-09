@@ -6,12 +6,12 @@ import com.novibe.dns.cloudflare.http.dto.request.CreateRuleRequest;
 import com.novibe.dns.cloudflare.http.dto.response.list.GatewayListDto;
 import com.novibe.dns.cloudflare.http.dto.response.rule.GatewayRuleDto;
 import com.novibe.dns.cloudflare.http.dto.response.rule.SingleRuleApiResponse;
-import lombok.Cleanup;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.StructuredTaskScope;
@@ -44,16 +44,18 @@ public class RuleService {
         }
     }
 
-    @SneakyThrows
     @SuppressWarnings("preview")
     public void createNewOverrideRules(Map<String, List<GatewayListDto>> lists, RulePrecedenceCounter rulePrecedenceCounter) {
-        @Cleanup var scope = StructuredTaskScope.open();
+        try  (var scope = StructuredTaskScope.open()) {
         for (Map.Entry<String, List<GatewayListDto>> entry : lists.entrySet()) {
             String overrideIp = entry.getKey();
             List<GatewayListDto> list = entry.getValue();
             scope.fork(() -> createNewOverrideRule(list, overrideIp, rulePrecedenceCounter.next()));
         }
-        scope.join();
+            scope.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void createNewOverrideRule(List<GatewayListDto> lists, String overrideIp, int precedence) {
@@ -76,7 +78,8 @@ public class RuleService {
     }
 
     public List<GatewayRuleDto> obtainExistingRules() {
-        return cloudflareRuleClient.getRules().getResult();
+        List<GatewayRuleDto> rules = cloudflareRuleClient.getRules().getResult();
+        return new ArrayList<>(Objects.requireNonNullElse(rules, List.of()));
     }
 
     public List<GatewayRuleDto> removeOldRules(List<GatewayRuleDto> rules) {
@@ -92,8 +95,8 @@ public class RuleService {
             if (!result.isSuccess()) {
                 Log.fail("Failed to remove old rule with id %s: %s".formatted(id, result.getErrors()));
             } else {
-                Log.progress(++counter + "/" + removeList.size());
                 rules.remove(rule);
+                Log.progress(++counter + "/" + removeList.size() + " removed");
             }
         }
         Log.common("\n%s of %s old rules have been removed".formatted(counter, removeList.size()));

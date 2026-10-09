@@ -1,6 +1,6 @@
 package com.novibe.dns.next_dns.service;
 
-import com.novibe.common.data_sources.HostsOverrideListsLoader;
+import com.novibe.common.base_structures.BypassRoute;
 import com.novibe.common.exception.UserInputException;
 import com.novibe.common.service.ExcludeRedirectCheckService;
 import com.novibe.common.util.DataParser;
@@ -33,7 +33,7 @@ public class NextDnsRewriteService {
         this.pruneUnmanagedRewrites = pruneUnmanagedRewrites;
     }
 
-    public Map<String, CreateRewriteDto> buildNewRewrites(List<HostsOverrideListsLoader.BypassRoute> overrides) {
+    public Map<String, CreateRewriteDto> buildNewRewrites(List<BypassRoute> overrides) {
         Map<String, CreateRewriteDto> rewriteDtos = new LinkedHashMap<>();
         List<String> cnameParents = new ArrayList<>();
         for (var route : overrides) {
