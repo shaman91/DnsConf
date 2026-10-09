@@ -1,13 +1,13 @@
 package com.novibe.common.data_sources;
 
 import com.novibe.common.base_structures.HostsLine;
+import com.novibe.common.exception.UserInputException;
 import com.novibe.common.util.DataParser;
 import com.novibe.common.util.Log;
-import lombok.Cleanup;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -36,16 +36,19 @@ public abstract class ListLoader<T> {
         return DataParser.parseHostsLine(line);
     }
 
-    @SneakyThrows
     @SuppressWarnings("preview")
     public List<T> fetchWebsites(List<String> urls) {
-        @Cleanup var scope = StructuredTaskScope.open();
-        List<StructuredTaskScope.Subtask<String>> requests = new ArrayList<>();
-        urls.stream()
-                .map(url -> scope.fork(() -> fetchList(url)))
-                .forEach(requests::add);
-        scope.join();
-        return parseLists(requests.stream().map(StructuredTaskScope.Subtask::get).toList());
+        try (var scope = StructuredTaskScope.open()) {
+            List<StructuredTaskScope.Subtask<String>> requests = new ArrayList<>();
+            urls.stream()
+                    .map(url -> scope.fork(() -> fetchList(url)))
+                    .forEach(requests::add);
+            scope.join();
+            return parseLists(requests.stream().map(StructuredTaskScope.Subtask::get).toList());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        }
     }
 
     /** Same ordered parser for downloaded sources, tests and offline dry-runs. */
@@ -65,13 +68,17 @@ public abstract class ListLoader<T> {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @SneakyThrows
-    private String fetchList(String url) {
+    private String fetchList(String url) throws IOException, InterruptedException {
         Log.io("Loading %s list from url: %s".formatted(listType(), url));
         HttpRequest request = HttpRequest.newBuilder(URI.create(url))
                 .GET()
                 .build();
-        return client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)).body();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        if (response.statusCode() > 299) {
+            throw UserInputException.noStackTrace("Failed to load %s list, response code %s from url: %s"
+                    .formatted(listType(), response.statusCode(), url));
+        }
+        return response.body();
     }
 
 }

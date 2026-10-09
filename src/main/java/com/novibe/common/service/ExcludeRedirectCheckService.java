@@ -29,7 +29,7 @@ public class ExcludeRedirectCheckService {
         if (ignored.startsWith(EXACT_MATCH_PREFIX)) {
             return domain.equals(ignored.substring(EXACT_MATCH_PREFIX.length()));
         }
-        return domain.endsWith(ignored);
+        return domain.equals(ignored) || domain.endsWith("." + ignored);
     }
 
 }
