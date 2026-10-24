@@ -6,11 +6,34 @@ eu.geohide.ru developers.openai.com
 ai-pool.comss.one openai.com
 ai-pool.comss.one chatgpt.com
 ai-pool.comss.one oaiusercontent.com
-37.230.192.51 a.claude.ai
+# Claude/Anthropic: checked EU routes; explicit children must precede CNAME parents.
+# Unverified legacy endpoints keep their old targets; this block does not delete rules.
+37.230.192.51 api.console.anthropic.com
+eu.geohide.ru a-api.anthropic.com
+eu.geohide.ru a-cdn.anthropic.com
+eu.geohide.ru a.claude.ai
+eu.geohide.ru api.anthropic.com
+37.230.192.51 api.claude.ai
+37.230.192.51 api.claude.com
+eu.geohide.ru assets-proxy.anthropic.com
+37.230.192.51 auth.anthropic.com
+eu.geohide.ru console.anthropic.com
+eu.geohide.ru downloads.claude.ai
+37.230.192.51 platform.claude.ai
+eu.geohide.ru platform.claude.com
+eu.geohide.ru s-cdn.anthropic.com
+37.230.192.51 statsig.anthropic.com
+eu.geohide.ru status.anthropic.com
+eu.geohide.ru support.anthropic.com
+eu.geohide.ru anthropic.com
+eu.geohide.ru claude.ai
+eu.geohide.ru claude.com
+37.230.192.51 claudemcpclient.com
+eu.geohide.ru claudeusercontent.com
+# Other legacy snapshot entries below are outside this change.
 37.230.192.51 a1961.g2.akamai.net
 37.230.192.51 a1968.i6g1.akamai.net
 37.230.192.51 aaa.deezer.com
-37.230.192.51 a-api.anthropic.com
 37.230.192.51 academy.jetbrains.com
 37.230.192.51 access.broadcom.com
 37.230.192.51 account.deezer.com
@@ -19,7 +42,6 @@ ai-pool.comss.one oaiusercontent.com
 37.230.192.51 accounts.scdn.co
 37.230.192.51 accounts.spotify.com
 37.230.192.51 accounts.x.ai
-37.230.192.51 a-cdn.anthropic.com
 37.230.192.51 activation.deezer.com
 37.230.192.51 adobe.fls.jetbrains.com
 37.230.192.51 aeronube.csm.naukri.com
@@ -36,18 +58,13 @@ ai-pool.comss.one oaiusercontent.com
 37.230.192.51 amazon.fls.jetbrains.com
 37.230.192.51 amd.com
 37.230.192.51 ansync.deezer.com
-37.230.192.51 anthropic.com
 37.230.192.51 ap-gae2.spotify.com
 37.230.192.51 ap-gew1.spotify.com
 37.230.192.51 ap-gew4.spotify.com
 37.230.192.51 ap-guc3.spotify.com
 37.230.192.51 ap-gue1.spotify.com
 37.230.192.51 ap-help.api.jetbrains.com
-37.230.192.51 api.anthropic.com
 37.230.192.51 api.cdnlibs.org
-37.230.192.51 api.claude.ai
-37.230.192.51 api.claude.com
-37.230.192.51 api.console.anthropic.com
 37.230.192.51 api.deepl.com
 37.230.192.51 api.deezer.com
 37.230.192.51 api.elevenlabs.io
@@ -88,11 +105,9 @@ ai-pool.comss.one oaiusercontent.com
 37.230.192.51 assets.staging.assessment.nc.naukri.com
 37.230.192.51 assets.x.ai
 37.230.192.51 assets-configurator.chess.com
-37.230.192.51 assets-proxy.anthropic.com
 37.230.192.51 assistant-s3-pa.googleapis.com
 37.230.192.51 audio-fa.scdn.co
 37.230.192.51 audio-fa-tls13.spotifycdn.com
-37.230.192.51 auth.anthropic.com
 37.230.192.51 auth.deepl.com
 37.230.192.51 auth.deezer.com
 37.230.192.51 autoconfig.api.jetbrains.com
@@ -150,9 +165,6 @@ eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 chatclient-mobile.naukri.com
 37.230.192.51 checkout.www.deepl.com
 37.230.192.51 chess.com
-37.230.192.51 claude.ai
-37.230.192.51 claude.com
-37.230.192.51 claudemcpclient.com
 37.230.192.51 clearance.deepl.com
 37.230.192.51 client-api.linear.app
 37.230.192.51 cloudconfig.jetbrains.com
@@ -178,7 +190,6 @@ eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 confluence.jetbrains.com
 37.230.192.51 connect.deezer.com
 37.230.192.51 consent.badoo.com
-37.230.192.51 console.anthropic.com
 37.230.192.51 console.x.ai
 37.230.192.51 constellation.linear.app
 37.230.192.51 content-a.strava.com
@@ -238,7 +249,6 @@ eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 download.teamviewer.com
 37.230.192.51 download-cdn.jetbrains.com
 37.230.192.51 download.jetbrains.com
-37.230.192.51 downloads.claude.ai
 37.230.192.51 downloads.marketplace.jetbrains.com
 37.230.192.51 drp-auth.deezer.com
 37.230.192.51 dunnhumby.fls.jetbrains.com
@@ -512,8 +522,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 pipe.deezer.com
 37.230.192.51 pkg.eu-1.jetbrains.space
 37.230.192.51 pkg-cdn.jetbrains.space
-37.230.192.51 platform.claude.ai
-37.230.192.51 platform.claude.com
 37.230.192.51 platform.deezer.com
 37.230.192.51 platform.parallel.ai
 37.230.192.51 p-lemmy.fmhy.net
@@ -573,7 +581,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 s.linear.app
 37.230.192.51 saa.last.fm
 37.230.192.51 sales.jetbrains.com
-37.230.192.51 s-cdn.anthropic.com
 37.230.192.51 scim.strava.com
 37.230.192.51 searx.fmhy.net
 37.230.192.51 secure.last.fm
@@ -618,8 +625,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 static.staging.assessment.nc.naukri.com
 37.230.192.51 static-assets-1.truthsocial.com
 37.230.192.51 stats.fmhy.net
-37.230.192.51 statsig.anthropic.com
-37.230.192.51 status.anthropic.com
 37.230.192.51 status.fmhy.net
 37.230.192.51 status.strava.com
 37.230.192.51 status.tuta.com
@@ -644,7 +649,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 suggestor.naukri.com
 37.230.192.51 suggestqueries.google.com
 37.230.192.51 suggest-staging.naukri.com
-37.230.192.51 support.anthropic.com
 37.230.192.51 support.broadcom.com
 37.230.192.51 support.deepl.com
 37.230.192.51 support.deezer.com
@@ -749,16 +753,12 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 wund.com
 37.230.192.51 wunderground.com
 37.230.192.51 www.amd.com
-37.230.192.51 www.anthropic.com
 37.230.192.51 www.autodesk.com
 37.230.192.51 www.badoo.com
 37.230.192.51 www.blog.strava.com
 37.230.192.51 www.business.strava.com
 37.230.192.51 www.canva.com
 37.230.192.51 www.chess.com
-37.230.192.51 www.claude.ai
-37.230.192.51 www.claude.com
-37.230.192.51 www.claudemcpclient.com
 37.230.192.51 www.deepl.com
 37.230.192.51 www.deezer.com
 37.230.192.51 www2.deepl.com
