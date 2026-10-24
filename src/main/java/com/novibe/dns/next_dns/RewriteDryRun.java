@@ -23,10 +23,15 @@ public final class RewriteDryRun {
                        List<CreateRewriteDto> expected) { }
 
     public static Plan plan(List<CreateRewriteDto> existing, List<String> exclusions, List<String> sources) {
+        return plan(existing, exclusions, sources, false);
+    }
+
+    public static Plan plan(List<CreateRewriteDto> existing, List<String> exclusions,
+                            List<String> sources, boolean compactRewrites) {
         var loader = new ExcludeRedirectSettingsLoader() {
             @Override public List<String> loadIgnoredDomains() { return exclusions; }
         };
-        var service = new NextDnsRewriteService(null, new ExcludeRedirectCheckService(loader), true);
+        var service = new NextDnsRewriteService(null, new ExcludeRedirectCheckService(loader), true, compactRewrites);
         var desired = service.buildNewRewrites(new HostsOverrideListsLoader().parseLists(sources));
         Map<String, String> old = new TreeMap<>();
         existing.forEach(r -> {
@@ -49,15 +54,17 @@ public final class RewriteDryRun {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length < 3) {
-            throw new IllegalArgumentException("Usage: RewriteDryRun existing.json exclusions.txt source1 [source2 ...] (all local files; PRUNE_REDIRECT=true)");
+        boolean compact = args.length > 0 && args[0].equals("--compact");
+        int offset = compact ? 1 : 0;
+        if (args.length - offset < 3) {
+            throw new IllegalArgumentException("Usage: RewriteDryRun [--compact] existing.json exclusions.txt source1 [source2 ...] (all local files; PRUNE_REDIRECT=true)");
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
-        var existing = Arrays.asList(gson.fromJson(Files.readString(Path.of(args[0])), CreateRewriteDto[].class));
-        var exclusions = Files.readAllLines(Path.of(args[1])).stream().map(String::strip)
+        var existing = Arrays.asList(gson.fromJson(Files.readString(Path.of(args[offset])), CreateRewriteDto[].class));
+        var exclusions = Files.readAllLines(Path.of(args[offset + 1])).stream().map(String::strip)
                 .filter(s -> !s.isEmpty() && !s.startsWith("#")).toList();
         List<String> sources = new ArrayList<>();
-        for (int i = 2; i < args.length; i++) sources.add(Files.readString(Path.of(args[i])));
-        System.out.println(gson.toJson(plan(existing, exclusions, sources)));
+        for (int i = offset + 2; i < args.length; i++) sources.add(Files.readString(Path.of(args[i])));
+        System.out.println(gson.toJson(plan(existing, exclusions, sources, compact)));
     }
 }

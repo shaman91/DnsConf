@@ -143,6 +143,14 @@ java --enable-preview -cp target/dns-block-and-redirect-configurer-1.0-SNAPSHOT.
 adds, removals, target changes and the expected full profile for pruning enabled.
 The tool makes no network calls and writes no files; it does not apply the plan.
 
+Optional `COMPACT_REDIRECT=true` (default `false`, NextDNS only) omits child
+rewrites whose target equals their nearest explicit parent's target. Descendant
+coverage and differing exceptions are preserved; source priority is unchanged.
+Removing existing redundant rules also requires `PRUNE_REDIRECT=true`. Review
+the exact plan first by adding `--compact` before `existing.json` above. To roll
+back, disable `COMPACT_REDIRECT` and run the workflow with the same sources; it
+will restore the explicit child rules. This fork enables compaction in its workflow.
+
 ### 2) Set up Blocklist
 
 Set sources to **environment variable** `BLOCK`
