@@ -24,13 +24,16 @@ public class NextDnsRewriteService {
     private final NextDnsRewriteClient nextDnsRewriteClient;
     private final ExcludeRedirectCheckService excludeRedirectCheckService;
     private final boolean pruneUnmanagedRewrites;
+    private final boolean compactRewrites;
 
     public NextDnsRewriteService(NextDnsRewriteClient nextDnsRewriteClient,
                                  ExcludeRedirectCheckService excludeRedirectCheckService,
-                                 @Value("${PRUNE_REDIRECT:false}") boolean pruneUnmanagedRewrites) {
+                                 @Value("${PRUNE_REDIRECT:false}") boolean pruneUnmanagedRewrites,
+                                 @Value("${COMPACT_REDIRECT:false}") boolean compactRewrites) {
         this.nextDnsRewriteClient = nextDnsRewriteClient;
         this.excludeRedirectCheckService = excludeRedirectCheckService;
         this.pruneUnmanagedRewrites = pruneUnmanagedRewrites;
+        this.compactRewrites = compactRewrites;
     }
 
     public Map<String, CreateRewriteDto> buildNewRewrites(List<BypassRoute> overrides) {
@@ -51,7 +54,7 @@ public class NextDnsRewriteService {
             }
         }
         validateCnameCycles(rewriteDtos);
-        return rewriteDtos;
+        return compactRewrites ? RewriteCompaction.compact(rewriteDtos) : rewriteDtos;
     }
 
     private static void validateCnameCycles(Map<String, CreateRewriteDto> rewrites) {

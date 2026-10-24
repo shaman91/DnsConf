@@ -55,7 +55,7 @@ class NextDnsRewriteServiceTest {
         var loader = new ExcludeRedirectSettingsLoader() {
             @Override public List<String> loadIgnoredDomains() { return List.of("=openai.com"); }
         };
-        var service = new NextDnsRewriteService(null, new ExcludeRedirectCheckService(loader), true);
+        var service = new NextDnsRewriteService(null, new ExcludeRedirectCheckService(loader), true, false);
         var desired = service.buildNewRewrites(new HostsOverrideListsLoader().parseLists(List.of(
                 "pool.example openai.com\n1.2.3.4 api.openai.com")));
         assertEquals(List.of("api.openai.com"), List.copyOf(desired.keySet()));
@@ -88,6 +88,22 @@ class NextDnsRewriteServiceTest {
 
         assertTrue(client.deletedIds.isEmpty());
         assertTrue(pending.isEmpty());
+    }
+
+    @Test
+    void compactionPrunesOnlyRedundantChildAndLeavesExistingParentAndExceptionUntouched() {
+        var client = new FakeRewriteClient(List.of(
+                new RewriteDto("parent", "example.com", "192.0.2.1"),
+                new RewriteDto("redundant", "a.example.com", "192.0.2.1"),
+                new RewriteDto("exception", "b.example.com", "192.0.2.2")));
+        var loader = new ExcludeRedirectSettingsLoader() {
+            @Override public List<String> loadIgnoredDomains() { return List.of(); }
+        };
+        var service = new NextDnsRewriteService(client, new ExcludeRedirectCheckService(loader), true, true);
+        var desired = service.buildNewRewrites(new HostsOverrideListsLoader().parseLists(List.of(
+                "192.0.2.1 example.com\n192.0.2.1 a.example.com\n192.0.2.2 b.example.com")));
+        assertTrue(service.cleanupOutdatedAndExcluded(desired).isEmpty());
+        assertEquals(List.of("redundant"), client.deletedIds);
     }
 
     @Test
@@ -128,7 +144,8 @@ class NextDnsRewriteServiceTest {
         return new NextDnsRewriteService(
                 client,
                 new ExcludeRedirectCheckService(loader),
-                pruneUnmanagedRewrites
+                pruneUnmanagedRewrites,
+                false
         );
     }
 
