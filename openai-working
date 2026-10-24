@@ -1,8 +1,8 @@
 # NextDNS hostname targets (not compatible with the Windows hosts file).
 # Earlier CNAME parents cover all later descendants, including later sources.
-# Exact dns.malw.link exception for OpenAI Developers; COMSS returns CF 1016
-# and the official Vercel edge returns 403 from the current network path.
-193.233.112.68 developers.openai.com
+# Keep Developers before its COMSS parent; use GeoHide's dynamic EU pool.
+# The two oaistatic rules below use the same pool (validated 2026-10-24).
+eu.geohide.ru developers.openai.com
 ai-pool.comss.one openai.com
 ai-pool.comss.one chatgpt.com
 ai-pool.comss.one oaiusercontent.com
@@ -142,7 +142,7 @@ ai-pool.comss.one oaiusercontent.com
 37.230.192.51 ccs-service.naukri.com
 37.230.192.51 cdn.auth0.com
 37.230.192.51 cdn.jetbrains.com
-37.230.192.51 cdn.oaistatic.com
+eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 cdn-1.strava.com
 37.230.192.51 charts-images.scdn.co
 37.230.192.51 chatbot.naukri.com
@@ -471,7 +471,7 @@ ai-pool.comss.one oaiusercontent.com
 37.230.192.51 notion.so
 37.230.192.51 np.naukimg.com
 37.230.192.51 o.pki.goog
-37.230.192.51 oaistatic.com
+eu.geohide.ru oaistatic.com
 37.230.192.51 oauth.account.jetbrains.com
 37.230.192.51 oauth.deezer.com
 37.230.192.51 oauth.fls.jetbrains.com
