@@ -41,6 +41,13 @@ eu.geohide.ru opal.google
 eu.geohide.ru opal.google.com
 eu.geohide.ru stitch.withgoogle.com
 eu.geohide.ru web.archive.org
+# Public vendor pages: root/www, redirect bundle and CSS/support paths checked 2026-10-26.
+# Keep both SketchUp names together; login and other Trimble endpoints are unchanged.
+eu.geohide.ru elgato.com
+eu.geohide.ru sketchup.com
+eu.geohide.ru sketchup.trimble.com
+eu.geohide.ru tableau.com
+eu.geohide.ru xerox.com
 # Remaining legacy snapshot entries below require separate validation.
 37.230.192.51 a1961.g2.akamai.net
 37.230.192.51 a1968.i6g1.akamai.net
@@ -597,8 +604,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 shop.strava.com
 37.230.192.51 signaler-pa.clients6.google.com
 37.230.192.51 sip.naukri.com
-37.230.192.51 sketchup.com
-37.230.192.51 sketchup.trimble.com
 37.230.192.51 skyscanner.fls.jetbrains.com
 37.230.192.51 sl.deepl.com
 37.230.192.51 slack.jetbrains.com
@@ -663,7 +668,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 swu-acm.jetbrains.space
 37.230.192.51 sydney.bing.com
 37.230.192.51 t.scdn.co
-37.230.192.51 tableau.com
 37.230.192.51 tableau.naukri.com
 37.230.192.51 target.naukri.com
 37.230.192.51 taxonomy-suggest.naukri.com
@@ -771,7 +775,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 www.echo.naukri.com
 37.230.192.51 www.e-learning.naukri.com
 37.230.192.51 www.elevenlabs.io
-37.230.192.51 www.elgato.com
 37.230.192.51 www.fmhy.lol
 37.230.192.51 www.fmhy.net
 37.230.192.51 www.framer.com
@@ -799,19 +802,15 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 www.promo.strava.com
 37.230.192.51 www.qwant.com
 37.230.192.51 www.resume.naukri.com
-37.230.192.51 www.sketchup.com
 37.230.192.51 www.spotify.com
 37.230.192.51 www.strava.com
-37.230.192.51 www.tableau.com
 37.230.192.51 www.tria.ge
 37.230.192.51 www.tuta.com
 37.230.192.51 www.x.ai
-37.230.192.51 www.xerox.com
 37.230.192.51 www-growth.scdn.co
 37.230.192.51 w-x.co
 37.230.192.51 wxug.com
 37.230.192.51 xboxdesignlab.xbox.com
-37.230.192.51 xerox.com
 37.230.192.51 xgpuweb.gssv-play-prod.xboxlive.com
 37.230.192.51 xgpuwebf2p.gssv-play-prod.xboxlive.com
 37.230.192.51 xsts.auth.xboxlive.com
