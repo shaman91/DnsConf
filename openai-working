@@ -30,7 +30,18 @@ eu.geohide.ru claude.ai
 eu.geohide.ru claude.com
 37.230.192.51 claudemcpclient.com
 eu.geohide.ru claudeusercontent.com
-# Other legacy snapshot entries below are outside this change.
+# Small verified leaf routes: all seven EU pool addresses and public GET checked 2026-10-25.
+# These names have no known child rules; keep every other legacy target unchanged.
+eu.geohide.ru ai.google.dev
+eu.geohide.ru aistudio.google.com
+eu.geohide.ru copilot.microsoft.com
+eu.geohide.ru designer.microsoft.com
+eu.geohide.ru developer.nvidia.com
+eu.geohide.ru opal.google
+eu.geohide.ru opal.google.com
+eu.geohide.ru stitch.withgoogle.com
+eu.geohide.ru web.archive.org
+# Remaining legacy snapshot entries below require separate validation.
 37.230.192.51 a1961.g2.akamai.net
 37.230.192.51 a1968.i6g1.akamai.net
 37.230.192.51 aaa.deezer.com
@@ -48,9 +59,7 @@ eu.geohide.ru claudeusercontent.com
 37.230.192.51 aet.spotify.com
 37.230.192.51 afcs.dellcdn.com
 37.230.192.51 affiliate.deezer.com
-37.230.192.51 ai.google.dev
 37.230.192.51 aisandbox-pa.googleapis.com
-37.230.192.51 aistudio.google.com
 37.230.192.51 aitestkitchen.withgoogle.com
 37.230.192.51 a-lemmy.fmhy.net
 37.230.192.51 alkalicore-pa.clients6.google.com
@@ -197,7 +206,6 @@ eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 content-management-files.canva.com
 37.230.192.51 contest.nc.naukri.com
 37.230.192.51 controlplane.tailscale.com
-37.230.192.51 copilot.microsoft.com
 37.230.192.51 corona.jetbrains.space
 37.230.192.51 corp.naukri.com
 37.230.192.51 cps.naukri.com
@@ -229,10 +237,8 @@ eu.geohide.ru cdn.oaistatic.com
 37.230.192.51 dell.com
 37.230.192.51 demologin.resdex.naukri.com
 37.230.192.51 demoresdex.naukri.com
-37.230.192.51 designer.microsoft.com
 37.230.192.51 designerapp.officeapps.live.com
 37.230.192.51 dev.strava.com
-37.230.192.51 developer.nvidia.com
 37.230.192.51 developerprofiles-pa.googleapis.com
 37.230.192.51 developers.deepl.com
 37.230.192.51 dev-gcast.deezer.com
@@ -493,8 +499,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 oneshot-free.www.deepl.com
 37.230.192.51 onlinetest.nc.naukri.com
 37.230.192.51 op.fmhy.net
-37.230.192.51 opal.google
-37.230.192.51 opal.google.com
 37.230.192.51 opal.withgoogle.com
 37.230.192.51 open.spotify.com
 37.230.192.51 openai.fund
@@ -633,7 +637,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 stgmtstjs.naukri.com
 37.230.192.51 stgmtstmnj.naukri.com
 37.230.192.51 stgmtstwb.naukri.com
-37.230.192.51 stitch.withgoogle.com
 37.230.192.51 store.last.fm
 37.230.192.51 store.strava.com
 37.230.192.51 stories.strava.com
@@ -729,7 +732,6 @@ eu.geohide.ru oaistatic.com
 37.230.192.51 wap.spotifycdn.com
 37.230.192.51 watch.samsung.strava.com
 37.230.192.51 weather.com
-37.230.192.51 web.archive.org
 37.230.192.51 web-backend.codeium.com
 37.230.192.51 webchannel-alkalimakersuite-pa.clients6.google.com
 37.230.192.51 webhooks.naukri.com
