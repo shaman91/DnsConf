@@ -6,6 +6,7 @@ dns.bezmezhau.com web-assets.nousresearch.com
 dns.bezmezhau.com hermes-assets.nousresearch.com
 dns.bezmezhau.com portal.nousresearch.com
 dns.bezmezhau.com authenticate.nousresearch.com
+dns.bezmezhau.com inference-api.nousresearch.com
 # Keep Developers before its COMSS parent; use GeoHide's dynamic EU pool.
 # The two oaistatic rules below use the same pool (validated 2026-10-24).
 eu.geohide.ru developers.openai.com
