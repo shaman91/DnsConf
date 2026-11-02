@@ -10,13 +10,13 @@ class NousPortalRuleTest {
     @Test
     void portalRuleIsIsolatedIdempotentAndReversible() throws Exception {
         String source = Files.readString(Path.of("openai-working")).replace("\r\n", "\n");
-        String rule = "dns.bezmezhau.com portal.nousresearch.com\n";
+        String rule = "31.58.216.201 portal.nousresearch.com\n";
         assertEquals(1, source.split(rule, -1).length - 1);
         String before = source.replace(rule, "");
         var baseline = RewriteDryRun.plan(List.of(), List.of(), List.of(before), true);
         var updated = RewriteDryRun.plan(baseline.expected(), List.of(), List.of(source), true);
         assertEquals(List.of(new RewriteDryRun.Change("portal.nousresearch.com", null,
-                "dns.bezmezhau.com")), updated.changes());
+                "31.58.216.201")), updated.changes());
         assertTrue(RewriteDryRun.plan(updated.expected(), List.of(), List.of(source), true).changes().isEmpty());
         assertEquals(baseline.expected(), RewriteDryRun.plan(updated.expected(), List.of(), List.of(before), true).expected());
     }
