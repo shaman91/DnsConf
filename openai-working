@@ -3,7 +3,7 @@
 # Hermes Agent and its shared Nous Research web assets: verified Bezmezhau proxy.
 31.58.216.201 hermes-agent.nousresearch.com
 dns.bezmezhau.com web-assets.nousresearch.com
-dns.bezmezhau.com hermes-assets.nousresearch.com
+181.215.40.49 hermes-assets.nousresearch.com
 31.58.216.201 portal.nousresearch.com
 dns.bezmezhau.com authenticate.nousresearch.com
 dns.bezmezhau.com inference-api.nousresearch.com
