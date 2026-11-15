@@ -1,5 +1,7 @@
 # NextDNS hostname targets (not compatible with the Windows hosts file).
 # Earlier CNAME parents cover all later descendants, including later sources.
+# GitHub API: direct endpoint verified for Hermes source updates.
+140.82.121.5 api.github.com
 # Hermes Agent and its shared Nous Research web assets: verified Bezmezhau proxy.
 31.58.216.201 hermes-agent.nousresearch.com
 dns.bezmezhau.com web-assets.nousresearch.com
