@@ -35,9 +35,30 @@ jobs:
           distribution: temurin
           java-version: '26'
           cache: maven
+          cache-dependency-path: |
+            pom.xml
+            .github/workflows/github_action.yml
 
       - name: Build with Maven
-        run: mvn -B clean package
+        shell: bash
+        run: |
+          # Retry dependency-transfer throttling only; never retry DNS application.
+          for attempt in 1 2 3; do
+            log="$RUNNER_TEMP/maven-build-$attempt.log"
+            if mvn -B -V clean package >"$log" 2>&1; then
+              cat "$log"
+              exit 0
+            else
+              status=$?
+            fi
+            cat "$log"
+            if (( attempt == 3 )) ||
+               ! grep -Eq '^\[ERROR\].*Could not transfer (artifact|metadata).*status code: 429([,[:space:]]|$)' "$log"; then
+              exit "$status"
+            fi
+            echo "::warning::Maven Central throttled a dependency transfer; retrying in $((attempt * 60)) seconds."
+            sleep "$((attempt * 60))"
+          done
 
       - name: Run application
         if: github.event_name != 'pull_request'

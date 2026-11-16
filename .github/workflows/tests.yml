@@ -20,6 +20,12 @@ jobs:
           distribution: temurin
           java-version: '26'
           cache: maven
+          cache-dependency-path: |
+            pom.xml
+            .github/workflows/tests.yml
+
+      - name: Test CI retry policy
+        run: python3 scripts/test_ci_retry.py
 
       - name: Run tests
         run: mvn -B test
