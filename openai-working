@@ -12,8 +12,14 @@ dns.bezmezhau.com inference-api.nousresearch.com
 # Keep Developers before its COMSS parent; use GeoHide's dynamic EU pool.
 # The two oaistatic rules below use the same pool (validated 2026-10-24).
 eu.geohide.ru developers.openai.com
+206.223.247.81 auth.openai.com
 ai-pool.comss.one openai.com
-ai-pool.comss.one chatgpt.com
+# Pin the currently healthy COMSS node; the matching child rows keep donor overrides out after compaction.
+206.223.247.81 chatgpt.com
+206.223.247.81 ab.chatgpt.com
+206.223.247.81 operator.chatgpt.com
+206.223.247.81 sora.chatgpt.com
+206.223.247.81 webrtc.chatgpt.com
 ai-pool.comss.one oaiusercontent.com
 # Claude/Anthropic: checked EU routes; explicit children must precede CNAME parents.
 # Unverified legacy endpoints keep their old targets; this block does not delete rules.
