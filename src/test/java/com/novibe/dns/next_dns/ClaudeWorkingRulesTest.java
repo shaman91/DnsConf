@@ -40,9 +40,10 @@ class ClaudeWorkingRulesTest {
         assertEquals("192.0.2.5", targets.get("notclaude.ai"));
         assertFalse(targets.containsKey("bridge.claudeusercontent.com"));
         assertFalse(targets.containsKey("static.claude.ai"));
-        for (String name : List.of("openai.com", "chatgpt.com", "oaiusercontent.com")) {
+        for (String name : List.of("openai.com", "oaiusercontent.com")) {
             assertEquals("ai-pool.comss.one", targets.get(name), name);
         }
+        assertEquals("206.223.247.81", targets.get("chatgpt.com"));
     }
 
     @Test
