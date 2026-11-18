@@ -29,7 +29,7 @@ class OpenAiWorkingRulesTest {
         for (String domain : List.of("developers.openai.com", "cdn.oaistatic.com", "oaistatic.com")) {
             assertEquals("eu.geohide.ru", rules.get(domain).content(), domain);
         }
-        for (String domain : List.of("openai.com", "chatgpt.com", "oaiusercontent.com")) {
+        for (String domain : List.of("openai.com", "oaiusercontent.com")) {
             assertEquals("ai-pool.comss.one", rules.get(domain).content(), domain);
         }
         assertFalse(rules.containsKey("android.chat.openai.com"));
@@ -52,4 +52,28 @@ class OpenAiWorkingRulesTest {
                 change.before() != null && "eu.geohide.ru".equals(change.after())));
         assertTrue(RewriteDryRun.plan(after.expected(), List.of(), List.of(source)).changes().isEmpty());
     }
+    @Test
+    void pinsOnlyChatGptAndSignInWithDonorChildrenStillCompacted() throws Exception {
+        String pinned = "206.223.247.81";
+        String source = Files.readString(Path.of("openai-working")).replace("\r\n", "\n");
+        String previous = source.replace(pinned + " chatgpt.com", "ai-pool.comss.one chatgpt.com")
+                .replaceAll("(?m)^206\\.223\\.247\\.81 (?:auth\\.openai\\.com|[^\\s]+\\.chatgpt\\.com)\\n", "");
+        String donor = """
+                192.0.2.1 ab.chatgpt.com
+                192.0.2.2 operator.chatgpt.com
+                192.0.2.3 sora.chatgpt.com
+                192.0.2.4 webrtc.chatgpt.com
+                192.0.2.5 auth.openai.com
+                192.0.2.6 api.openai.com
+                192.0.2.7 unrelated.example.com
+                """;
+        var baseline = RewriteDryRun.plan(List.of(), List.of(), List.of(previous, donor), true);
+        var updated = RewriteDryRun.plan(baseline.expected(), List.of(), List.of(source, donor), true);
+        assertEquals(List.of(new RewriteDryRun.Change("chatgpt.com", "ai-pool.comss.one", pinned),
+                new RewriteDryRun.Change("auth.openai.com", null, pinned)), updated.changes());
+        assertTrue(RewriteDryRun.plan(updated.expected(), List.of(), List.of(source, donor), true).changes().isEmpty());
+        assertEquals(baseline.expected(),
+                RewriteDryRun.plan(updated.expected(), List.of(), List.of(previous, donor), true).expected());
+    }
+
 }
